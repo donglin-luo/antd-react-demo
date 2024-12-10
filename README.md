@@ -1,50 +1,62 @@
-哦空培训支持
+根据你提供的图片，这个问题是一个典型的图论问题，其中CEO们可以看作是图中的节点，而他们之间的喜好关系可以看作是有向边。我们需要找出最大的独立集，即最大的一组节点，使得组内任意两个节点之间没有直接的连接（即没有喜好关系）。
+这个问题可以通过动态规划或者贪心算法来解决。这里，我将提供一个使用贪心算法的Java代码示例，该算法基于以下思路：每次选择一个没有被其他已选择节点喜欢的节点，这样可以确保选择的节点集合是独立的。
+Java代码实现
+import java.util.*;
 
-public static int[] stateOfCells(int[] cell, int days) {
-    int cell_size = cell.length;
-    int[] answer = new int[days * cell_size];
-    int index = 0;
+public class Solution {
+    public static int findMaxCeo(int[] personIDs) {
+        int n = personIDs.length;
+        int[] inDegree = new int[n]; // 记录每个CEO被多少人喜欢
 
-    for (int day = 0; day < days; day++) {
-        int[] newCell = cell.clone(); // 创建一个新数组来存储下一代的状态
+        // 计算入度
+        for (int id : personIDs) {
+            inDegree[id]++;
+        }
 
-        for (int i = 0; i < cell_size; i++) {
-            int liveNeighbors = countLiveNeighbors(cell, i);
-
-            if (cell[i] == 1 && (liveNeighbors == 2 || liveNeighbors == 3)) {
-                newCell[i] = 1; // 活细胞，且邻居数量为2或3，保持存活
-            } else if (cell[i] == 0 && liveNeighbors == 3) {
-                newCell[i] = 1; // 死细胞，且邻居数量为3，变为活细胞
-            } else {
-                newCell[i] = 0; // 其他情况，细胞死亡或保持死亡
+        // 使用优先队列（最小堆）来存储入度，以便每次都能选出入度最小的CEO
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int i = 0; i < n; i++) {
+            if (inDegree[i] == 0) {
+                pq.offer(i);
             }
         }
 
-        cell = newCell; // 更新细胞状态为下一代
-
-        for (int i = 0; i < cell_size; i++) {
-            answer[index++] = cell[i];
+        int count = 0;
+        while (!pq.isEmpty()) {
+            int ceoId = pq.poll();
+            count++;
+            // 检查这个CEO喜欢的CEO，并将他们的入度减1
+            for (int i = 0; i < n; i++) {
+                if (personIDs[i] == ceoId && inDegree[i] > 0) {
+                    inDegree[i]--;
+                    if (inDegree[i] == 0) {
+                        pq.offer(i);
+                    }
+                }
+            }
         }
+
+        return count;
     }
 
-    return answer;
-}
-
-private static int countLiveNeighbors(int[] cell, int index) {
-    int cell_size = cell.length;
-    int liveNeighbors = 0;
-
-    // 检查当前细胞的邻居
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            int x = (index + i + cell_size) % cell_size;
-            int y = (index / cell_size + j) % cell_size;
-            liveNeighbors += cell[x * cell_size + y];
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] personIDs = new int[n];
+        for (int i = 0; i < n; i++) {
+            personIDs[i] = in.nextInt();
         }
+        in.close();
+
+        int result = findMaxCeo(personIDs);
+        System.out.println(result);
     }
-
-    // 减去当前细胞本身，因为它不应该被计算在内
-    liveNeighbors -= cell[index];
-
-    return liveNeighbors;
 }
+
+代码解释：
+1.  初始化：首先，我们创建一个数组 inDegree 来记录每个CEO被多少人喜欢。
+2.  计算入度：遍历 personIDs 数组，对于每个CEO，如果他们喜欢某个人，就将那个人的入度加1。
+3.  使用优先队列：将所有入度为0的CEO加入优先队列（最小堆），这样可以快速找到入度最小的CEO。
+4.  选择CEO：从优先队列中取出一个CEO，加入结果集合，并减少他们所喜欢的CEO的入度。如果某个CEO的入度变为0，也将他加入优先队列。
+5.  输出结果：最后，输出选择的CEO数量。
+这种方法利用了贪心算法的思想，每次都选择当前入度最小的CEO，这样可以尽可能地增加独立集合的大小。
