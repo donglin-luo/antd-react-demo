@@ -1,71 +1,87 @@
 import java.util.*;
 
-public class Solution {
-    private static int index = 0; // Tarjan算法的索引
-    private static int maxGroupSize = 0; // 最大环大小
+public class MAIN {
+
+    // 并查集结构
+    static class UnionFind {
+        int[] parent;
+        int[] size;
+
+        // 初始化并查集
+        public UnionFind(int n) {
+            parent = new int[n];
+            size = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i; // 每个元素的父亲是自己
+                size[i] = 1;   // 每个元素的大小是1
+            }
+        }
+
+        // 查找根节点，带路径压缩
+        public int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]); // 路径压缩
+            }
+            return parent[x];
+        }
+
+        // 合并两个集合，按大小合并
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if (rootX != rootY) {
+                // 小树接到大树下面
+                if (size[rootX] < size[rootY]) {
+                    parent[rootX] = rootY;
+                    size[rootY] += size[rootX];
+                } else {
+                    parent[rootY] = rootX;
+                    size[rootX] += size[rootY];
+                }
+            }
+        }
+
+        // 获取当前集合的大小
+        public int getSize(int x) {
+            return size[find(x)];
+        }
+    }
 
     public static int findMaxCEOs(int[] personIDs) {
         int n = personIDs.length;
 
-        // Tarjan算法相关数据结构
-        int[] indices = new int[n];
-        int[] lowLink = new int[n];
-        boolean[] onStack = new boolean[n];
-        Stack<Integer> stack = new Stack<>();
+        // 创建并查集对象
+        UnionFind uf = new UnionFind(n);
 
-        Arrays.fill(indices, -1); // 初始索引为-1
-
-        // 遍历每个节点，找到所有SCC
+        // 遍历 personIDs 数组，将CEO之间的关系进行合并
         for (int i = 0; i < n; i++) {
-            if (indices[i] == -1) {
-                tarjan(i, personIDs, indices, lowLink, onStack, stack);
+            if (personIDs[i] != n) {  // 如果 personIDs[i] == n，表示该CEO没有指向有效的CEO
+                uf.union(i, personIDs[i]);
             }
         }
 
-        return maxGroupSize;
-    }
-
-    private static void tarjan(int node, int[] graph, int[] indices, int[] lowLink, boolean[] onStack, Stack<Integer> stack) {
-        indices[node] = lowLink[node] = index++;
-        stack.push(node);
-        onStack[node] = true;
-
-        int neighbor = graph[node];
-        if (indices[neighbor] == -1) { // 如果邻居未访问
-            tarjan(neighbor, graph, indices, lowLink, onStack, stack);
-            lowLink[node] = Math.min(lowLink[node], lowLink[neighbor]);
-        } else if (onStack[neighbor]) { // 如果邻居在栈中
-            lowLink[node] = Math.min(lowLink[node], indices[neighbor]);
+        // 找出所有并查集中的集合大小
+        int maxCycleLength = 0;
+        for (int i = 0; i < n; i++) {
+            maxCycleLength = Math.max(maxCycleLength, uf.getSize(i));
         }
 
-        // 如果当前节点是SCC的根节点
-        if (indices[node] == lowLink[node]) {
-            int size = 0;
-            int v;
-            do {
-                v = stack.pop();
-                onStack[v] = false;
-                size++;
-            } while (v != node);
-
-            maxGroupSize = Math.max(maxGroupSize, size);
-        }
+        return maxCycleLength;
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int num = scanner.nextInt();  // CEO的数量
+        int[] personIDs = new int[num];  // 记录每个CEO指向的ID
 
-        // 输入CEO数量
-        int n = scanner.nextInt();
-        int[] personIDs = new int[n];
-
-        // 输入喜欢关系
-        for (int i = 0; i < n; i++) {
-            personIDs[i] = scanner.nextInt() - 1; // 转为0索引
+        // 读取personIDs数组
+        for (int i = 0; i < num; i++) {
+            personIDs[i] = scanner.nextInt();
         }
 
-        // 计算最大CEO人数
+        // 计算最大CEO参加的会议数量
         int result = findMaxCEOs(personIDs);
-        System.out.println(result);
+        System.out.println(result);  // 输出结果
     }
 }
