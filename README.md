@@ -1,62 +1,66 @@
-根据你提供的图片，这个问题是一个典型的图论问题，其中CEO们可以看作是图中的节点，而他们之间的喜好关系可以看作是有向边。我们需要找出最大的独立集，即最大的一组节点，使得组内任意两个节点之间没有直接的连接（即没有喜好关系）。
-这个问题可以通过动态规划或者贪心算法来解决。这里，我将提供一个使用贪心算法的Java代码示例，该算法基于以下思路：每次选择一个没有被其他已选择节点喜欢的节点，这样可以确保选择的节点集合是独立的。
-Java代码实现
-import java.util.*;
+import java.util.Scanner;
 
 public class Solution {
-    public static int findMaxCeo(int[] personIDs) {
-        int n = personIDs.length;
-        int[] inDegree = new int[n]; // 记录每个CEO被多少人喜欢
+    public static int[] stateOfCells(int[] cell, int days) {
+        int n = cell.length;
 
-        // 计算入度
-        for (int id : personIDs) {
-            inDegree[id]++;
-        }
-
-        // 使用优先队列（最小堆）来存储入度，以便每次都能选出入度最小的CEO
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for (int i = 0; i < n; i++) {
-            if (inDegree[i] == 0) {
-                pq.offer(i);
-            }
-        }
-
-        int count = 0;
-        while (!pq.isEmpty()) {
-            int ceoId = pq.poll();
-            count++;
-            // 检查这个CEO喜欢的CEO，并将他们的入度减1
+        // 模拟天数
+        for (int day = 0; day < days; day++) {
+            int prev = cell[0]; // 存储上一轮的第一个元素，用于计算当前元素的更新
             for (int i = 0; i < n; i++) {
-                if (personIDs[i] == ceoId && inDegree[i] > 0) {
-                    inDegree[i]--;
-                    if (inDegree[i] == 0) {
-                        pq.offer(i);
-                    }
+                // 获取左右邻居状态
+                int left;
+                if (i == 0) {
+                    left = 0; // 边界条件
+                } else {
+                    left = prev;
                 }
+
+                int right;
+                if (i == n - 1) {
+                    right = 0; // 边界条件
+                } else {
+                    right = cell[i + 1];
+                }
+
+                // 临时保存当前值
+                int temp = cell[i];
+
+                // 更新状态
+                if (left == right) {
+                    cell[i] = 0;
+                } else {
+                    cell[i] = 1;
+                }
+
+                // 更新 prev 为当前值，用于下一轮计算
+                prev = temp;
             }
         }
 
-        return count;
+        return cell;
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        int[] personIDs = new int[n];
-        for (int i = 0; i < n; i++) {
-            personIDs[i] = in.nextInt();
-        }
-        in.close();
+        Scanner scanner = new Scanner(System.in);
 
-        int result = findMaxCeo(personIDs);
-        System.out.println(result);
+        // 输入数据
+        int cell_size = scanner.nextInt(); // 细胞数（固定为 8）
+        int[] cell = new int[cell_size];
+        for (int i = 0; i < cell_size; i++) {
+            cell[i] = scanner.nextInt();
+        }
+        int days = scanner.nextInt(); // 天数
+
+        // 调用方法获取结果
+        int[] result = stateOfCells(cell, days);
+
+        // 输出结果
+        for (int i = 0; i < result.length; i++) {
+            if (i > 0) {
+                System.out.print(" ");
+            }
+            System.out.print(result[i]);
+        }
     }
 }
-
-代码解释：
-1.  初始化：首先，我们创建一个数组 inDegree 来记录每个CEO被多少人喜欢。
-2.  计算入度：遍历 personIDs 数组，对于每个CEO，如果他们喜欢某个人，就将那个人的入度加1。
-3.  使用优先队列：将所有入度为0的CEO加入优先队列（最小堆），这样可以快速找到入度最小的CEO。
-4.  选择CEO：从优先队列中取出一个CEO，加入结果集合，并减少他们所喜欢的CEO的入度。如果某个CEO的入度变为0，也将他加入优先队列。
-5.  输出结果：最后，输出选择的CEO数量。
-这种方法利用了贪心算法的思想，每次都选择当前入度最小的CEO，这样可以尽可能地增加独立集合的大小。
