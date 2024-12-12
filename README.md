@@ -1,3 +1,39 @@
+Sure, here is the extracted English text from the images:
+----
+SHL
+Question
+Note: The main class name must be “Solution”.
+Gregor is a salesperson employed in the city of Cartesia, which is an infinite plane, the locations of which follow the Cartesian coordinate system. There are N+1 retailers in the city. N retailers, with positions 1 to N, have the coordinates (X₁, 0, 0) to (Xₙ, 0, 0). The head retailer, with position N+1, is located at the coordinate (Xₙ₊₁, Yₙ₊₁).
+Gregor wishes to find the shortest possible path from a given kth retailer to all the other retailers in the city. He may visit a retailer twice along his route. The distance between any two retailers is the same as the distance between two points in the Cartesian coordinate system.
+Write an algorithm to help Gregor to find the minimum distance of a path that will allow him to visit all the given retailers.
+Input
+The first line of the input consists of an integer - posK, representing the position of the starting retailer (K).
+The second line consists of an integer - num, representing the number of retailers on the X-axis (N).
+The third line consists of N space-separated integers, representing the X-coordinates of retailers on the X-axis.
+The fourth line consists of an integer - XN+1, representing the X-coordinate of the head retailer.
+The fifth line consists of an integer - YN+1, representing the Y-coordinate of the head retailer.
+Output
+Print a real number representing the minimum possible length of the path that travels through all the given points, rounded up to 6 decimal places.
+Constraints
+1 ≤ posK ≤ num + 1
+Example
+Input:
+1
+3
+0 1 2
+1
+1
+Output:
+3.828427
+Explanation:
+The coordinates of the retailers are (0,0), (1,0) and (2,0).
+The coordinates of the head retailer is (1,1).
+The coordinates of the starting retailer is (1,0).
+The minimum possible length of path from starting retailer is via:
+(1,0) -> (2,0) -> (1,1) -> (0,0)
+i.e. length of path = 1 + 1.4142135 + 1.4142135 = 3.828427.
+So, the minimum length of the path is 3.828427.
+----
 为了解决这个问题，我们需要找到两个房子之间的最大间隙，并且这两个房子的编号是连续的。我们可以通过以下步骤来实现这个算法：
 1.  读取输入，包括房子的数量和每个房子的编号与位置。
 2.  将房子按照位置排序。
