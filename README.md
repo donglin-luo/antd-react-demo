@@ -111,3 +111,34 @@ The cell at position 1 is 1 and its neighbours are 0, so its state on next day w
 The cell at position 2 is 0 and its neighbours are 1 and 0, so its state on next day will be 1.
 Similarly for all the cells, the state of cells on next day will be 0 1 0 0 1 0 1 0.
 ----
+Sure, here is the extracted English text from the image:
+----
+The currently selected programming language is Java. We emphasize the submission of a fully working code over partially correct but inefficient code. Once submitted, you cannot review the problem again. You can use System.out.println() to debug your code. The System.out.print() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+Note: The main class name must be “Solution”.
+A convention center is hosting a meeting of large firms which N CEOs will be attending. Each CEO is assigned an individual ID from 0 to N-1. Each CEO has some favorite CEOs whom they like. They will attend the meeting only if they can be seated next to the person they like. You are asked to plan this seating arrangement.
+Write an algorithm to find the maximum number of CEOs who will attend the meeting.
+Input:
+The first line of the input consists of an integer num, representing the number of CEOs (N).
+The second line consists of N space-separated integers representing the ID of the person whom the ith CEO likes.
+Output:
+Print an integer representing the maximum number of CEOs who can attend the meeting.
+Note:
+One CEO can be liked by more than one CEO.
+Constraints:
+1 ≤ num ≤ 10^5
+0 ≤ i < num
+Example
+Input:
+4
+2 3 4 1
+Output:
+4
+Explanation:
+The CEO with ID 0 likes ID 2.
+The CEO with ID 1 likes ID 3.
+The CEO with ID 2 likes ID 4.
+The CEO with ID 3 likes ID 0.
+So, CEO 0 and CEO 2 can be seated around the circular table in the following manner:
+(2, 3, 4, 1)
+The maximum of 4 CEOs can be seated around the circular table in this manner.
+----
