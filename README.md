@@ -1,3 +1,54 @@
+SHL
+
+Question
+
+Note: The main class name must be "Solution".
+
+An agent sends a secret message to headquarters containing the details of his project. He sends one soft copy to the agency's computer (P) and sends one hard copy by fax to Roger, the technical head of the agency (Q). But during the transmission, noise in the network causes some bits of the data message P to get distorted. However, we know that Roger always matches the binary values of both messages and checks whether he can convert the message P to message Q by flipping the minimum number of bits.
+
+Write an algorithm to help Roger find the minimum number of bits that must be flipped to convert message P to message Q.
+
+Input
+The first line of the input consists of an integer num1, representing the secret message sent to the agency's computer (P).
+The second line consists of an integer num2, representing the message sent to the technical head of the agency (Q).
+
+Output
+Print an integer representing the minimum number of bits that must be flipped to convert message P to message Q.
+
+Constraints
+-10^9 ≤ num1, num2 ≤ 10^9
+
+Example
+Input:
+7
+10
+Output:
+3
+SHL
+
+Question
+
+An organization has assigned X engineers to work on a project. The engineers need a way to connect with each other and share data. Austin, the network administrator, has built a hierarchical network that allows an engineer to connect to two engineers at most in the network. He establishes all full duplex connections in the network (i.e. if there is a connection between A and B, then data can be transferred from A to B, and from B to A). The strength of the signal decreases by one unit upon each transmission between directly connected engineer. Therefore, Austin needs to determine the minimum strength at which the signal must be sent so that it will reach everyone.
+
+Write an algorithm to help Austin find the minimum strength at which the signal must be sent so that the data will reach everyone.
+
+Input
+The input consists of a string: inputString representing the network in a level-order manner such that the character at indices 2*i+1 and 2*i+2 are the children of the character at index i.
+
+Output
+Print a non-negative integer representing the minimum signal strength at which each engineer sent the data in a level-order manner.
+
+Note
+An engineer is represented by 1 in the input string. If an engineer does not connect with any other engineer, then 1 should be present at its children indices, otherwise, 2 children should be present.
+
+Constraints
+0 ≤ len ≤ 1000, where len represents the length of the given string
+
+Example
+Input:
+11111000010000
+Output:
+32 4 3 4
 import java.util.Arrays;
 
 public class Solution {
