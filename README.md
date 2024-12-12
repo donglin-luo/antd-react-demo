@@ -1,4 +1,70 @@
-import java.util.*;
+import java.util.Scanner;
+
+public class SubstringCount {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 输入父串和子串
+        String parent = scanner.nextLine();
+        String sub = scanner.nextLine();
+
+        // 输出子串出现次数
+        System.out.println(countSubstringOccurrences(parent, sub));
+    }
+
+    public static int countSubstringOccurrences(String parent, String sub) {
+        if (sub.isEmpty() || parent.isEmpty()) return 0;
+
+        // 转换为小写（忽略大小写）
+        parent = parent.toLowerCase();
+        sub = sub.toLowerCase();
+
+        int[] lps = buildLPS(sub); // 构建部分匹配表（LPS 表）
+        int count = 0;
+        int i = 0, j = 0; // i 遍历父串，j 遍历子串
+
+        while (i < parent.length()) {
+            if (parent.charAt(i) == sub.charAt(j)) {
+                i++;
+                j++;
+                if (j == sub.length()) { // 完整匹配
+                    count++;
+                    j = lps[j - 1]; // 重置 j，继续寻找下一次匹配
+                }
+            } else {
+                if (j > 0) {
+                    j = lps[j - 1]; // 回溯 j
+                } else {
+                    i++; // 前进父串指针
+                }
+            }
+        }
+        return count;
+    }
+
+    // 构建 LPS（Longest Prefix Suffix）表
+    private static int[] buildLPS(String pattern) {
+        int[] lps = new int[pattern.length()];
+        int len = 0; // 当前最长相等前后缀长度
+        int i = 1;
+
+        while (i < pattern.length()) {
+            if (pattern.charAt(i) == pattern.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len > 0) {
+                    len = lps[len - 1]; // 回退
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+}import java.util.*;
 
 public class Solution {
     public static int heightPyramid(int[] arr) {
