@@ -1,3 +1,43 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class NonCommonElementsCounter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 读取第一个列表的大小和元素
+        int listInput1Size = scanner.nextInt();
+        Set<Integer> set1 = new HashSet<>();
+        for (int i = 0; i < listInput1Size; i++) {
+            set1.add(scanner.nextInt());
+        }
+
+        // 读取第二个列表的大小和元素
+        int listInput2Size = scanner.nextInt();
+        Set<Integer> set2 = new HashSet<>();
+        for (int i = 0; i < listInput2Size; i++) {
+            set2.add(scanner.nextInt());
+        }
+
+        // 计算不共有的元素数量
+        int nonCommonCount = countNonCommonElements(set1, set2);
+
+        // 打印结果
+        System.out.println(nonCommonCount);
+
+        scanner.close();
+    }
+
+    private static int countNonCommonElements(Set<Integer> set1, Set<Integer> set2) {
+        Set<Integer> nonCommonElements = new HashSet<>(set1);
+        nonCommonElements.addAll(set2); // 将set2的元素添加到nonCommonElements中
+        nonCommonElements.removeAll(set1); // 移除set1中的元素
+        nonCommonElements.removeAll(set2); // 移除set2中的元素
+
+        return nonCommonElements.size(); // 返回不共有元素的数量
+    }
+}
 Given a binary string S consisting of only Os and 1s, write an algorithm to find the numbeof different ways to get the longest consecutive sub-segment of 1s only. You are allowedto change any K number of 0s to 1s. lf two ways lead to the same string, they areconsidered to be similar, not different.
 Input
 The first line ofthe input consists of an integer -/istinput1 size, an integerrepresenting the number of elements in the first list (N).
