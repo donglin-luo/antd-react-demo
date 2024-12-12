@@ -1,3 +1,11 @@
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but inefficient code. Once submitted you cannot review this problem again. You can use System.out.print() to debug your code. The System.out.print() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+
+Note: The main class name must be "Solution"
+
+A prime number is divisible only by 1 and itself. The teacher writes a positive integer on the board. Write an algorithm to find all the prime numbers from 2 to the given positive number.
+
+Input
+The first line of the input consists o
 import java.util.Scanner;
 
 public class SubstringCount {
