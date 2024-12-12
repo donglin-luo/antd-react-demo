@@ -1,4 +1,48 @@
-Sure, here is the extracted English text from the image:
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input reading
+        int fatherPos = scanner.nextInt(); // X1: Father's starting position
+        int martinPos = scanner.nextInt(); // X2: Martin's starting position
+        int velFather = scanner.nextInt(); // V1: Father's velocity
+        int steps = scanner.nextInt();     // N: Number of steps father takes
+
+        // Variables to track maximum overlaps and corresponding best velocity
+        int maxCommonSteps = 0;
+        int bestSpeed = 0;
+
+        // Try all possible velocities V2 from 1 to V1
+        for (int velMartin = 1; velMartin <= velFather; velMartin++) {
+            int martinSteps = 0; // Count of overlapping steps for the current V2
+            int martinPosition = martinPos;
+
+            // Simulate Martin's run
+            for (int i = 0; i < steps; i++) {
+                int fatherPosition = fatherPos + i * velFather;
+
+                // Check if Martin's position matches the father's position
+                if (martinPosition >= fatherPos && (martinPosition - fatherPos) % velFather == 0) {
+                    martinSteps++;
+                }
+
+                martinPosition += velMartin; // Update Martin's position
+            }
+
+            // Update maximum overlaps and best velocity
+            if (martinSteps > maxCommonSteps || 
+                (martinSteps == maxCommonSteps && velMartin > bestSpeed)) {
+                maxCommonSteps = martinSteps;
+                bestSpeed = velMartin;
+            }
+        }
+
+        // Output the result
+        System.out.println(maxCommonSteps + " " + bestSpeed);
+    }
+}Sure, here is the extracted English text from the image:
 ----
 SHL
 Question
