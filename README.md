@@ -1,3 +1,59 @@
+为了解决这个问题，我们需要找到两个房子之间的最大间隙，并且这两个房子的编号是连续的。我们可以通过以下步骤来实现这个算法：
+1.  读取输入，包括房子的数量和每个房子的编号与位置。
+2.  将房子按照位置排序。
+3.  遍历排序后的房子列表，计算每对相邻房子之间的间隙。
+4.  找到最大的间隙，并记录下这对房子的编号。
+5.  输出这两个房子的编号。
+以下是Java代码实现：
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int num = scanner.nextInt();
+        int val = scanner.nextInt(); // val 总是等于2，可以忽略
+
+        // 存储房子的编号和位置
+        int[] houses = new int[num];
+        for (int i = 0; i < num; i++) {
+            houses[i] = scanner.nextInt();
+        }
+
+        // 读取每个房子的位置
+        Map<Integer, Integer> positionMap = new HashMap<>();
+        for (int i = 0; i < num; i++) {
+            int houseNumber = houses[i];
+            int position = scanner.nextInt();
+            positionMap.put(houseNumber, position);
+        }
+
+        // 将房子编号和位置存储在数组中，并按位置排序
+        Integer[] sortedKeys = new Integer[num];
+        sortedKeys = positionMap.keySet().toArray(sortedKeys);
+        Arrays.sort(sortedKeys, Comparator.comparingInt(positionMap::get));
+
+        // 初始化最大间隙和对应的房子编号
+        int maxGap = -1;
+        int startHouse = -1;
+        int endHouse = -1;
+
+        // 计算每对相邻房子之间的间隙
+        for (int i = 0; i < num - 1; i++) {
+            int currentGap = positionMap.get(sortedKeys[i + 1]) - positionMap.get(sortedKeys[i]);
+            if (currentGap > maxGap) {
+                maxGap = currentGap;
+                startHouse = sortedKeys[i];
+                endHouse = sortedKeys[i + 1];
+            }
+        }
+
+        // 输出结果
+        System.out.println(startHouse + " " + endHouse);
+    }
+}
+
+这段代码首先读取输入，然后使用一个HashMap来存储房子的编号和位置。接着，我们将房子编号和位置存储在一个数组中，并按位置排序。然后，我们遍历排序后的数组，计算每对相邻房子之间的间隙，并找到最大的间隙。最后，我们输出具有最大间隙的两个房子的编号。
+请注意，这个算法假设输入是有效的，并且房子编号是唯一的。如果输入可能包含无效数据，你需要添加适当的错误检查。
 Sure, here is the extracted English text from the image:
 ----
 SHL
