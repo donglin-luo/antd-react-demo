@@ -1,3 +1,62 @@
+Certainly, here is the text extracted from the image:
+SHL
+
+Question
+
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but inefficient code. Once submitted you cannot review this problem again. You can use System.out.print() to debug your code. The System.out.print() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+
+Note: The main class name must be "Solution"
+
+A prime number is divisible only by 1 and itself. The teacher writes a positive integer on the board. Write an algorithm to find all the prime numbers from 2 to the given positive number.
+
+Input
+The first line of the input consists of an integer num, representing the number written on the board.
+
+Output
+Print space separated integers representing the prime numbers represented by the teacher in increasing order, if no prime number exists within given range, then do not print anything.
+
+Constraints
+1 < num < 10^9
+
+Example
+Input:
+11
+
+Output:
+2 3 5 7 11
+
+Explanation
+For the given prime number, the prime numbers are 2, 3, 5, 7, and 11.
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Solution
+{
+    public static int[] calculatePrimeNumbers(int num)
+    {
+        int[] answer = new int[100];
+        // Write your code here
+
+        return answer;
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        // input for num
+        int num = in.nextInt();
+
+        int[] result = calculatePrimeNumbers(num);
+        for(int idx = 0; idx < result.length - 1; idx++)
+            System.out.print(result[idx] + " ");
+        System.out.print(result[result.length - 1]);
+    }
+}
+
+IamplayingonthehouseofTimwiththegangofTim
+Tim
 The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but inefficient code. Once submitted you cannot review this problem again. You can use System.out.print() to debug your code. The System.out.print() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
 
 Note: The main class name must be "Solution"
