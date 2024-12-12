@@ -1,3 +1,43 @@
+import java.util.Arrays;
+
+public class Solution {
+    public static double minPossLen(int posk, int[] retailerXcord, int headXcord, int headYcord) {
+        // 将零售商坐标转换为二维数组
+        double[][] retailers = new double[posk + 1][2];
+        for (int i = 0; i < posk; i++) {
+            retailers[i][0] = retailerXcord[i];
+            retailers[i][1] = 0;
+        }
+        retailers[posk][0] = headXcord;
+        retailers[posk][1] = headYcord;
+
+        // 计算所有零售商之间的距离
+        double totalDistance = 0;
+        for (int i = 0; i < posk; i++) {
+            for (int j = i + 1; j <= posk; j++) {
+                double distance = Math.sqrt(Math.pow(retailers[i][0] - retailers[j][0], 2) + Math.pow(retailers[i][1] - retailers[j][1], 2));
+                totalDistance += distance;
+            }
+        }
+
+        // 考虑经过头零售商的最短路径
+        double distanceViaHead = 0;
+        for (int i = 0; i < posk; i++) {
+            distanceViaHead += Math.sqrt(Math.pow(retailers[i][0] - retailers[posk][0], 2) + Math.pow(retailers[i][1] - retailers[posk][1], 2));
+        }
+
+        // 返回两种路径中较短的一个
+        return Math.min(totalDistance, distanceViaHead * 2);
+    }
+
+    public static void main(String[] args) {
+        int posk = 1;
+        int[] retailerXcord = {3, 1, 0, 2};
+        int headXcord = 1;
+        int headYcord = 1;
+        System.out.printf("%.6f\n", minPossLen(posk, retailerXcord, headXcord, headYcord));
+    }
+}
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
