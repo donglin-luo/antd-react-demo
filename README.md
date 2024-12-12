@@ -1,5 +1,38 @@
 Sure, here is the extracted English text from the image:
 ----
+SHL
+Question
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but efficient code. Once submitted, you cannot review this problem again. You can use System.out.println() to debug your code. The System.out.println() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+Note: The main class name must be “Solution”.
+An airline company wishes to establish flight service in a new country. The company wants to provide flight service in such a way that will cover all the cities in the country with the minimum number of flights. Given the coordinates of all the cities in the country, the company has to determine the minimum number of straight routes necessary to cover all the cities.
+Write an algorithm to help the company find the minimum number of straight routes necessary to cover all the cities.
+Input
+The first line of the input consists of two space-separated integers - numCities and numCoord representing the number of cities in the country (N) and the number of coordinates of the city (where C = 2 representing the X and Y coordinates of the cities), respectively.
+The next N lines consist of two space-separated integers - coordX and coordY representing the X and Y coordinates of the cities, respectively.
+Output
+Print an integer representing the minimum number of straight routes necessary to cover all the cities.
+Constraints
+0 ≤ numCities ≤ 10^4
+-100 ≤ coordX, coordY ≤ 100
+numCoord = 2
+Example
+Input:
+8 2
+1 4
+2 3
+2 1
+3 2
+4 1
+5 0
+6 1
+7 0
+Output:
+2
+Explanation:
+The points (2,1),(3,2),(4,3),(5,4) fall on a straight line and the points (1,4),(2,3),(3,2),(4,1),(5,0) fall on another straight line.
+----
+Sure, here is the extracted English text from the image:
+----
 Question
 Note: The main class name must be “Solution”.
 A company sells its products at N outlets. All the outlets are connected to each other by a series of roads. There is only one way to reach from one outlet to another. Each outlet of the company has a unique outlet ID. Whenever the inventory of a certain product reaches a minimum limit then these K outlets make a request for extra inventory. The company sends the requested products from its warehouse to the outlets. In order to save on fuel, the warehouse supervisor directs the driver Mike to deliver the products to the outlets along the shortest and most direct path possible, without traveling any single road twice.
