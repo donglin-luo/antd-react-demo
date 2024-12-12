@@ -1,3 +1,52 @@
+SHL
+
+Question
+
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but inefficient code. Once submitted you cannot review this problem again. You can use System.out.print() to debug your code. The version of JDK being used is 1.8.
+
+Note: The main class name must be "Solution"
+
+You are given two strings containing only English letters. Write an algorithm to count the number of occurrences of the second string in the first string. (You may disregard the case of the letters.)
+
+Input
+The first line of the input consists of a string parent, representing the first string.
+The second line consists of a string sub, representing the second string.
+
+Output
+Print an integer representing the number of occurrences of Sub in Parent. If no occurrence is found in Parent then print 0.
+
+Example
+Input:
+TimIsPlayingWithTheHouseOfTim
+Tim
+Output:
+3
+
+Explanation
+Tim occurs 3 times in the first string.
+So, the output is 3.
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Solution
+{
+    public static int countOccur(String parent, String sub)
+    {
+        int answer = 0;
+        // Write your code here
+
+        return answer;
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        // Input for parent
+        // Input for sub
+    }
+}
 import java.util.Arrays;
 
 public class Solution {
