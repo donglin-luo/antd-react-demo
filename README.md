@@ -2,6 +2,35 @@ Sure, here is the extracted English text from the image:
 ----
 SHL
 Question
+Input
+The first line of the input consists of two space-separated integers - num and val, representing the number of houses (N) and the value val (where val is always equal to two representing the house number (H) and the position of houses (P) for N houses).
+The next N lines consist of two space-separated integers representing the house number (H) and the position (P), respectively.
+Output
+Print two space-separated integers representing the house numbers in ascending order between which the largest plot is available.
+Constraints
+2 ≤ num ≤ 10^6
+1 ≤ H ≤ 100
+0 ≤ P < 10^6
+0 ≤ I < num
+Note
+No two houses have the same position. In the case of multiple possibilities, print the one with the least distance from the reference point.
+Example
+Input:
+5 2
+3 7
+1 9
+2 0
+4 1
+5 8
+Output:
+4 5
+Explanation:
+The largest land area (size = 15 units) is available between the houses numbered 4 and 5. So the output contains these house numbers in ascending order.
+----
+Sure, here is the extracted English text from the image:
+----
+SHL
+Question
 The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but efficient code. Once submitted, you cannot review this problem again. You can use System.out.println() to debug your code. The System.out.println() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
 Note: The main class name must be “Solution”.
 An airline company wishes to establish flight service in a new country. The company wants to provide flight service in such a way that will cover all the cities in the country with the minimum number of flights. Given the coordinates of all the cities in the country, the company has to determine the minimum number of straight routes necessary to cover all the cities.
