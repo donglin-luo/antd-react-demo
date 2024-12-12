@@ -1,3 +1,23 @@
+Given a binary string S consisting of only Os and 1s, write an algorithm to find the numbeof different ways to get the longest consecutive sub-segment of 1s only. You are allowedto change any K number of 0s to 1s. lf two ways lead to the same string, they areconsidered to be similar, not different.
+Input
+The first line ofthe input consists of an integer -/istinput1 size, an integerrepresenting the number of elements in the first list (N).
+The second line consists of N space-separated integers representing the first list of
+positive integers.
+The third line consists of an integer- /istinput2 size, representing the number ofelements in the second list (M).
+The last line consists of M space-separated integers representing the second list ofpositive integers.
+Output
+Print a positive integer representing the count of elements that are not common toboth the lists of integers.
+Example
+input
+11
+1 1 2 3 4 5 5 7 6 9 10
+10
+11 12 13 45 6 7 18 19 20
+Output.
+12
+Explanation:
+The numbers that are not common to both lists are [1, 1, 2, 3, 9,10, 11, 12, 13, 18, 19,20].
+So, the output is 12.
 SHL
 
 Question
