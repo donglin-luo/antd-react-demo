@@ -2,6 +2,45 @@ SHL
 
 Question
 
+Today is Max's birthday. He has ordered a rectangular fruit cake which is divided into N x M pieces. Each piece of the cake contains a different fruit numbered from 1 to N*M. He has invited K friends, each of whom have brought a list of their favorite fruit choices. A friend goes home happy if the piece he receives is of favorite fruit. Note that each friend can receive only one piece of cake.
+
+Design a way for Max to find the maximum number of friends he can make happy.
+
+Input
+
+The first line of the input consists of an integer - numOfFriends, representing the number of friends (K). The next K lines consist of X+1 space-separated integers, where the first integer represents the count of choices of the ith friend followed by X space-separated integers representing the fruits he likes. The next line of the input consists of an integer - numN, representing the number of rows. The next line of the input consists of an integer - numM, representing the number of columns.
+
+Output
+Print an integer representing the maximum number of friends he can make happy.
+
+Constraints
+
+1 ≤ numN, numM ≤ 50
+
+0 ≤ numOfFriends ≤ 3000
+
+0 ≤ X ≤ numN * numM
+
+1 ≤ i ≤ numOfFriends
+
+Example
+
+Input:
+3
+3 1 2 3
+1 2
+1 1
+2
+2
+
+Output:
+2
+
+Explanation:
+SHL
+
+Question
+
 Note: The main class name must be "Solution".
 
 An agent sends a secret message to headquarters containing the details of his project. He sends one soft copy to the agency's computer (P) and sends one hard copy by fax to Roger, the technical head of the agency (Q). But during the transmission, noise in the network causes some bits of the data message P to get distorted. However, we know that Roger always matches the binary values of both messages and checks whether he can convert the message P to message Q by flipping the minimum number of bits.
