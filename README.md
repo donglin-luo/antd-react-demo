@@ -1,3 +1,38 @@
+import java.util.Scanner;
+
+public class MartinAndJog {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // 读取输入
+        int fatherPos = scanner.nextInt();
+        int martinPos = scanner.nextInt();
+        int velFather = scanner.nextInt();
+        int steps = scanner.nextInt();
+        
+        // 计算父亲跑步的总距离
+        int fatherTotalDistance = (fatherPos + velFather * steps);
+        
+        // 计算Martin需要覆盖的额外距离以追上父亲
+        int extraDistance = fatherPos - martinPos;
+        
+        // 计算Martin需要覆盖的总距离
+        int martinTotalDistance = fatherTotalDistance + extraDistance;
+        
+        // 计算Martin需要的步数
+        int martinSteps = (int) Math.ceil((double) martinTotalDistance / velFather);
+        
+        // 计算Martin的最大速度V2，以最大化落在父亲脚步上的次数
+        // 由于Martin需要覆盖更多的距离，他的速度至少需要是父亲速度的martinSteps/steps倍
+        int maxSteps = Math.min(martinSteps, steps);
+        int velMartin = (int) Math.ceil((double) martinTotalDistance / maxSteps);
+        
+        // 输出结果
+        System.out.println(maxSteps + " " + velMartin);
+        
+        scanner.close();
+    }
+}
 Sure, here is the extracted English text from the image:
 ----
 Question
