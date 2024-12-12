@@ -1,3 +1,56 @@
+import java.util.Arrays;
+
+public class Solution {
+    public static int[] calculatePrimeNumbers(int num) {
+        // 创建一个布尔数组，用于标记数字是否为素数
+        boolean[] isPrime = new boolean[num + 1];
+        Arrays.fill(isPrime, true); // 初始假设所有数都是素数
+        isPrime[0] = false; // 0不是素数
+        isPrime[1] = false; // 1不是素数
+
+        // 从2开始到sqrt(num)，检查每个数是否为素数
+        for (int i = 2; i * i <= num; i++) {
+            if (isPrime[i]) {
+                // 如果是素数，那么它的倍数都不是素数
+                for (int j = i * i; j <= num; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // 收集所有素数
+        int count = 0;
+        for (int i = 2; i <= num; i++) {
+            if (isPrime[i]) {
+                count++;
+            }
+        }
+
+        // 创建结果数组，大小为素数的数量
+        int[] answer = new int[count];
+        int index = 0;
+
+        // 填充结果数组
+        for (int i = 2; i <= num; i++) {
+            if (isPrime[i]) {
+                answer[index++] = i;
+            }
+        }
+
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int num = in.nextInt();
+        in.close();
+
+        int[] result = calculatePrimeNumbers(num);
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i] + (i < result.length - 1 ? " " : ""));
+        }
+    }
+}
 Certainly, here is the text extracted from the image:
 SHL
 
