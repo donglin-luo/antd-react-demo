@@ -1,3 +1,46 @@
+import java.lang.*;
+import java.io.*;
+
+public class Solution {
+    public static int maxOutlets(int num, int[] reqOutletsIDs, int[][] roadCon) {
+        Set<Integer> cover = new HashSet<>();
+        for (int outlet : reqOutletsIDs) {
+            cover.add(outlet);
+        }
+        Set<String> visitedR = new HashSet<>();
+        for (int[] road : roadCon) {
+            int outletA = road[0];
+            int outletB = road[1];
+            if (cover.contains(outletA) && cover.contains(outletB)) {
+                visitedR.add(outletA + "-" + outletB);
+            }
+        }
+        return cover.size() - visitedR.size() / 2;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int num = in.nextInt();
+        int reqOutletsIDs_size = in.nextInt();
+        int reqOutletsIDs[] = new int[reqOutletsIDs_size];
+        for (int idx = 0; idx < reqOutletsIDs_size; idx++) {
+            reqOutletsIDs[idx] = in.nextInt();
+        }
+        int roadcon_row = in.nextInt();
+        int roadcon_col = in.nextInt();
+        int roadcon[][] = new int[roadcon_row][roadcon_col];
+        for (int idx = 0; idx < roadcon_row; idx++) {
+            for (int jdx = 0; jdx < roadcon_col; jdx++) {
+                roadcon[idx][jdx] = in.nextInt();
+            }
+        }
+        int result = maxOutlets(num, reqOutletsIDs, roadcon);
+        System.out.print(result);
+    }
+}
+
+public class Solution {
+    public static int maxOutlets(int 
 Sure, here is the extracted English text from the image:
 ----
 SHL
