@@ -1,3 +1,25 @@
+Sure, here is the extracted English text from the image:
+----
+SHL
+Question
+In a car racing game, the participating cars must be registered online prior to the game. A car is assigned a registration number that is stored in a database. The registration number consists of digits from 0-9. The registration number can be positive or negative. A negative registration number denotes that the car is already registered online whereas a positive registration number denotes that the car is a newly registered car. Before the game starts, the system automatically assigns a track number to each car. The track number is the smallest permutation of the car registration number and never starts with zero.
+Write an algorithm to generate the track number.
+Input
+The input consists of an integer num, representing the car registration number.
+Output
+Print an integer representing the track number.
+Constraints
+-10^7 ≤ num ≤ 10^7
+Note
+There is a possible answer for every input num.
+Example
+Input:
+9348
+Output:
+349
+Explanation:
+The smallest permutation formed with the digits 9, 4, and 3 is 349. So the output is 349.
+----
 Sure, here is the extracted English text from the images:
 ----
 SHL
