@@ -1,4 +1,43 @@
-除了动态规划方法之外，对于旅行商问题的变种，还有一些其他更优的算法可以尝试，比如遗传算法、模拟退火算法、蚁群算法等。这些启发式算法在处理大规模问题时通常能够找到较好的近似解。
+import java.util.Scanner;
+
+public class Solution {
+    public static double minpossLen(int posk, int[] retailerxcord, int headxcord, int headycord) {
+        double answer = 0;
+        
+        // 计算从起始零售商到每个零售商的距离
+        for (int x : retailerxcord) {
+            answer += Math.sqrt(Math.pow(x - posk, 2));
+        }
+        
+        // 计算从最后一个零售商到头零售商的距离
+        answer += Math.sqrt(Math.pow(headxcord - retailerxcord[retailerxcord.length - 1], 2) + Math.pow(headycord, 2));
+        
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        
+        // 输入起始零售商的位置
+        int posk = in.nextInt();
+        
+        // 输入零售商的x坐标
+        int retailerxcord_size = in.nextInt();
+        int[] retailerxcord = new int[retailerxcord_size];
+        for (int idx = 0; idx < retailerxcord_size; idx++) {
+            retailerxcord[idx] = in.nextInt();
+        }
+        
+        // 输入头零售商的x坐标
+        int headxcord = in.nextInt();
+        
+        // 输入头零售商的y坐标
+        int headycord = in.nextInt();
+        
+        double result = minpossLen(posk, retailerxcord, headxcord, headycord);
+        System.out.print(result);
+    }
+}动态规划方法之外，对于旅行商问题的变种，还有一些其他更优的算法可以尝试，比如遗传算法、模拟退火算法、蚁群算法等。这些启发式算法在处理大规模问题时通常能够找到较好的近似解。
 
 下面是一个使用遗传算法（Genetic Algorithm）来解决旅行商问题变种的示例 Java 代码：
 
