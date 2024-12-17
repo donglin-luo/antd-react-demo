@@ -1,4 +1,80 @@
-import java.lang.*;
+public class Solution {
+
+    // Helper function to compute the Euclidean distance between two points (x1, y1) and (x2, y2)
+    public static double euclideanDistance(int x1, int y1, int x2, int y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    public static double minPossLen(int posK, int[] retailerCord, int headCord, int headycord) {
+        int n = retailerCord.length + 1; // Total number of retailers (including the head retailer)
+        int[] x = new int[n];
+        int[] y = new int[n];
+
+        // Setting the coordinates for all retailers
+        for (int i = 0; i < n - 1; i++) {
+            x[i] = retailerCord[i];
+            y[i] = 0; // The y-coordinate of all other retailers is 0
+        }
+        x[n - 1] = headCord;
+        y[n - 1] = headycord; // The head retailer has the provided y-coordinate
+
+        // Calculate the Euclidean distances between each pair of retailers
+        double[][] dist = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    dist[i][j] = euclideanDistance(x[i], y[i], x[j], y[j]);
+                }
+            }
+        }
+
+        // DP with bitmasking: dp[mask][i] represents the minimum distance to visit all retailers in 'mask'
+        // and end at retailer 'i'
+        double[][] dp = new double[1 << n][n];
+        for (int i = 0; i < (1 << n); i++) {
+            Arrays.fill(dp[i], Double.MAX_VALUE); // Initialize dp array with a large value
+        }
+
+        // Start at the retailer posK (1-indexed, convert to 0-indexed)
+        dp[1 << (posK - 1)][posK - 1] = 0;
+
+        // Iterate over all possible masks and update the DP table
+        for (int mask = 0; mask < (1 << n); mask++) {
+            for (int u = 0; u < n; u++) {
+                if ((mask & (1 << u)) != 0) { // If retailer 'u' is visited in the current mask
+                    for (int v = 0; v < n; v++) {
+                        if ((mask & (1 << v)) == 0) { // If retailer 'v' has not been visited
+                            dp[mask | (1 << v)][v] = Math.min(dp[mask | (1 << v)][v], dp[mask][u] + dist[u][v]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Find the minimum distance to visit all retailers
+        double minDistance = Double.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            minDistance = Math.min(minDistance, dp[(1 << n) - 1][i]);
+        }
+
+        return minDistance;
+    }
+
+    public static void main(String[] args) {
+        // 直接模拟输入
+        int posK = 1; // 起始零售商的位置
+        int num = 3; // 零售商的数量
+        int[] retailerCord = {0, 1, 2}; // 零售商的 X 坐标
+        int headCord = 1; // 头零售商的 X 坐标
+        int headycord = 1; // 头零售商的 Y 坐标
+
+        // 获取最短路径长度
+        double result = minPossLen(posK, retailerCord, headCord, headycord);
+
+        // 输出结果，精确到小数点后六位
+        System.out.printf("%.6f\n", result);
+    }
+}import java.lang.*;
 import java.io.*;
 
 public class Solution {
