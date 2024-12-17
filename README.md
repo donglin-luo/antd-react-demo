@@ -1,4 +1,53 @@
+import java.util.Scanner;
+
 public class Solution {
+
+    // 计算从posK开始到零售商，再到主零售商的最小路径
+    public static double minPossiblePath(int posK, int[] retailerXcord, int headXcord, int headYcord) {
+        // 1. 找到离起始位置最近的零售商
+        int closestRetailer = retailerXcord[0];
+        int minDistance = Math.abs(posK - retailerXcord[0]);
+        for (int i = 1; i < retailerXcord.length; i++) {
+            int currentDistance = Math.abs(posK - retailerXcord[i]);
+            if (currentDistance < minDistance) {
+                minDistance = currentDistance;
+                closestRetailer = retailerXcord[i];
+            }
+        }
+
+        // 2. 从最近零售商到主零售商的欧几里得距离
+        double distanceToHeadRetailer = Math.sqrt(Math.pow(closestRetailer - headXcord, 2) + Math.pow(headYcord, 2));
+
+        // 3. 总路径长度 = 从起点到最近零售商的距离 + 零售商到主零售商的距离
+        return minDistance + distanceToHeadRetailer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // 输入起始位置
+        int posK = in.nextInt();
+
+        // 输入零售商的数量
+        int n = in.nextInt();
+        int[] retailerXcord = new int[n];
+        
+        // 输入零售商的X坐标
+        for (int i = 0; i < n; i++) {
+            retailerXcord[i] = in.nextInt();
+        }
+
+        // 输入主零售商的X和Y坐标
+        int headXcord = in.nextInt();
+        int headYcord = in.nextInt();
+
+        // 调用方法计算结果
+        double result = minPossiblePath(posK, retailerXcord, headXcord, headYcord);
+        
+        // 输出结果，保留6位小数
+        System.out.printf("%.6f\n", result);
+    }
+}public class Solution {
 
     // Helper function to compute the Euclidean distance between two points (x1, y1) and (x2, y2)
     public static double euclideanDistance(int x1, int y1, int x2, int y2) {
