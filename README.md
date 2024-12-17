@@ -1,4 +1,46 @@
-从你提供的图片来看，你的代码似乎是一个用于解决旅行商问题（TSP）的Java程序。旅行商问题是一个经典的组合优化问题，目标是找到访问一系列城市并返回起点的最短可能路径。
+import java.util.Scanner;
+
+public class Solution {
+    public static double minpossLen(int posk, int[] retailerxcord, int headxcord, int headycord) {
+        double answer = 0;
+        
+        // 计算从起始零售商到第一个零售商的距离
+        answer += Math.abs(retailerxcord[0] - posk);
+        
+        // 计算从第一个零售商到最后一个零售商的距离
+        for (int i = 1; i < retailerxcord.length; i++) {
+            answer += Math.abs(retailerxcord[i] - retailerxcord[i - 1]);
+        }
+        
+        // 计算从最后一个零售商到头零售商的距离
+        answer += Math.sqrt(Math.pow(headxcord - retailerxcord[retailerxcord.length - 1], 2) + Math.pow(headycord, 2));
+        
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        
+        // 输入起始零售商的位置
+        int posk = in.nextInt();
+        
+        // 输入零售商的x坐标
+        int retailerxcord_size = in.nextInt();
+        int[] retailerxcord = new int[retailerxcord_size];
+        for (int idx = 0; idx < retailerxcord_size; idx++) {
+            retailerxcord[idx] = in.nextInt();
+        }
+        
+        // 输入头零售商的x坐标
+        int headxcord = in.nextInt();
+        
+        // 输入头零售商的y坐标
+        int headycord = in.nextInt();
+        
+        double result = minpossLen(posk, retailerxcord, headxcord, headycord);
+        System.out.print(result);
+    }
+}从你提供的图片来看，你的代码似乎是一个用于解决旅行商问题（TSP）的Java程序。旅行商问题是一个经典的组合优化问题，目标是找到访问一系列城市并返回起点的最短可能路径。
 你的代码中有几个问题需要修正：
 1.  你的minPossen方法似乎没有正确实现计算最短路径的逻辑。
 2.  你的代码没有考虑到零售商的Y坐标，只使用了X坐标来计算距离。
