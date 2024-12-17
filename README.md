@@ -2,6 +2,53 @@ import java.util.Scanner;
 
 public class Solution {
     public static double minpossLen(int posk, int[] retailerxcord, int headxcord, int headycord) {
+        double answer = Double.MAX_VALUE;
+        
+        // 遍历所有零售商，计算从起始零售商到每个零售商再到头零售商的路径长度
+        for (int i = 0; i < retailerxcord.length; i++) {
+            double distance = 0;
+            
+            // 从起始零售商到第i个零售商的距离
+            distance += Math.abs(retailerxcord[i] - posk);
+            
+            // 从第i个零售商到头零售商的距离
+            distance += Math.sqrt(Math.pow(headxcord - retailerxcord[i], 2) + Math.pow(headycord, 2));
+            
+            // 更新最短路径长度
+            if (distance < answer) {
+                answer = distance;
+            }
+        }
+        
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        
+        // 输入起始零售商的位置
+        int posk = in.nextInt();
+        
+        // 输入零售商的x坐标
+        int retailerxcord_size = in.nextInt();
+        int[] retailerxcord = new int[retailerxcord_size];
+        for (int idx = 0; idx < retailerxcord_size; idx++) {
+            retailerxcord[idx] = in.nextInt();
+        }
+        
+        // 输入头零售商的x坐标
+        int headxcord = in.nextInt();
+        
+        // 输入头零售商的y坐标
+        int headycord = in.nextInt();
+        
+        double result = minpossLen(posk, retailerxcord, headxcord, headycord);
+        System.out.print(result);
+    }
+}import java.util.Scanner;
+
+public class Solution {
+    public static double minpossLen(int posk, int[] retailerxcord, int headxcord, int headycord) {
         double answer = 0;
         
         // 计算从起始零售商到每个零售商的距离
