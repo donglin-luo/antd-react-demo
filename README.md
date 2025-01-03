@@ -1,4 +1,62 @@
-import java.util.Scanner;
+public static int maxRatingBooks(int amount, int[][] horrorBooks, int[][] sciFiBooks) {
+    int n1 = horrorBooks.length;
+    int n2 = sciFiBooks.length;
+
+    // Initialize DP table
+    int[][] dp = new int[amount + 1][amount + 1];
+    for (int i = 0; i <= amount; i++) {
+        for (int j = 0; j <= amount; j++) {
+            dp[i][j] = -1; // -1 means not reachable
+        }
+    }
+    dp[0][0] = 0; // Base case: no money spent, zero rating
+
+    // Process horror books
+    for (int[] book : horrorBooks) {
+        int rating = book[0];
+        int price = book[1];
+        for (int b1 = amount; b1 >= price; b1--) {
+            for (int b2 = 0; b2 <= amount; b2++) {
+                if (dp[b1 - price][b2] != -1) {
+                    dp[b1][b2] = Math.max(dp[b1][b2], dp[b1 - price][b2] + rating);
+                }
+            }
+        }
+    }
+
+    // Process sci-fi books
+    for (int[] book : sciFiBooks) {
+        int rating = book[0];
+        int price = book[1];
+        for (int b2 = amount; b2 >= price; b2--) {
+            for (int b1 = 0; b1 <= amount; b1++) {
+                if (dp[b1][b2 - price] != -1) {
+                    dp[b1][b2] = Math.max(dp[b1][b2], dp[b1][b2 - price] + rating);
+                }
+            }
+        }
+    }
+
+    // Find the maximum rating with at least one book from each category
+    int maxRating = 0;
+    for (int b1 = 1; b1 <= amount; b1++) {
+        for (int b2 = 1; b2 <= amount; b2++) {
+            if (b1 + b2 <= amount && dp[b1][b2] != -1) {
+                maxRating = Math.max(maxRating, dp[b1][b2]);
+            }
+        }
+    }
+
+    return maxRating;
+}
+
+// Example usage
+public static void main(String[] args) {
+    int[][] horrorBooks = {{60, 10}, {100, 20}, {120, 30}}; // (rating, price)
+    int[][] sciFiBooks = {{50, 5}, {70, 15}, {90, 25}};     // (rating, price)
+    int budget = 50;
+    System.out.println(maxRatingBooks(budget, horrorBooks, sciFiBooks)); // Output: highest total rating
+}import java.util.Scanner;
 
 public class Solution {
 
