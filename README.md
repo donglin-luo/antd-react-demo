@@ -1,3 +1,86 @@
+import java.util.*;
+
+public class Solution {
+    public static int maxRatingBooks(int amount, int[][] horrorBooks, int[][] sciFiBooks) {
+        // 将恐怖书籍和科幻书籍的星级和价格分别存储
+        int[] horrorRatings = new int[horrorBooks.length];
+        int[] horrorPrices = new int[horrorBooks.length];
+        int[] sciFiRatings = new int[sciFiBooks.length];
+        int[] sciFiPrices = new int[sciFiBooks.length];
+
+        for (int i = 0; i < horrorBooks.length; i++) {
+            horrorRatings[i] = horrorBooks[i][0];
+            horrorPrices[i] = horrorBooks[i][1];
+        }
+        for (int i = 0; i < sciFiBooks.length; i++) {
+            sciFiRatings[i] = sciFiBooks[i][0];
+            sciFiPrices[i] = sciFiBooks[i][1];
+        }
+
+        // 动态规划数组，dp[i] 表示金额为 i 时的最大星级
+        int[] dp = new int[amount + 1];
+
+        // 填充恐怖书籍的动态规划数组
+        for (int i = 0; i < horrorBooks.length; i++) {
+            for (int j = amount; j >= horrorPrices[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - horrorPrices[i]] + horrorRatings[i]);
+            }
+        }
+
+        // 存储恐怖书籍的最大星级
+        int maxHorrorRating = 0;
+        for (int i = 0; i <= amount; i++) {
+            maxHorrorRating = Math.max(maxHorrorRating, dp[i]);
+        }
+
+        // 重置动态规划数组，填充科幻书籍的动态规划数组
+        Arrays.fill(dp, 0);
+        for (int i = 0; i < sciFiBooks.length; i++) {
+            for (int j = amount; j >= sciFiPrices[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - sciFiPrices[i]] + sciFiRatings[i]);
+            }
+        }
+
+        // 存储科幻书籍的最大星级
+        int maxSciFiRating = 0;
+        for (int i = 0; i <= amount; i++) {
+            maxSciFiRating = Math.max(maxSciFiRating, dp[i]);
+        }
+
+        // 寻找至少购买一本书的两个类别的最大星级
+        int maxRating = -1;
+        for (int i = 1; i <= amount; i++) {
+            if (dp[i] > 0) { // 确保至少购买了一本书
+                maxRating = Math.max(maxRating, maxHorrorRating + maxSciFiRating - dp[i]);
+            }
+        }
+
+        return maxRating > 0 ? maxRating : -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int amount = in.nextInt();
+        int horrorBooks_row = in.nextInt();
+        int horrorBooks_col = in.nextInt();
+        int[][] horrorBooks = new int[horrorBooks_row][horrorBooks_col];
+        for (int idx = 0; idx < horrorBooks_row; idx++) {
+            for (int jdx = 0; jdx < horrorBooks_col; jdx++) {
+                horrorBooks[idx][jdx] = in.nextInt();
+            }
+        }
+        int sciFiBooks_row = in.nextInt();
+        int sciFiBooks_col = in.nextInt();
+        int[][] sciFiBooks = new int[sciFiBooks_row][sciFiBooks_col];
+        for (int idx = 0; idx < sciFiBooks_row; idx++) {
+            for (int jdx = 0; jdx < sciFiBooks_col; jdx++) {
+                sciFiBooks[idx][jdx] = in.nextInt();
+            }
+        }
+        int result = maxRatingBooks(amount, horrorBooks, sciFiBooks);
+        System.out.print(result);
+    }
+}
 import java.util.Scanner;
 
 public class Solution {
