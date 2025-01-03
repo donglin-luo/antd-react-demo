@@ -1,3 +1,76 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    public static int maxRatingBooks(int amount, int[][] horrorBooks, int[][] sciFiBooks) {
+        int[][] dp = new int[amount + 1][amount + 1];
+        dp[0][0] = 0; // No money spent, zero rating
+
+        // Process horror books
+        for (int[] book : horrorBooks) {
+            int price = book[0], rating = book[1];
+            for (int b1 = amount; b1 >= price; b1--) {
+                for (int b2 = 0; b2 <= amount; b2++) {
+                    if (dp[b1 - price][b2] != -1) {
+                        dp[b1][b2] = Math.max(dp[b1][b2], dp[b1 - price][b2] + rating);
+                    }
+                }
+            }
+        }
+
+        // Process sci-fi books
+        for (int[] book : sciFiBooks) {
+            int price = book[0], rating = book[1];
+            for (int b2 = amount; b2 >= price; b2--) {
+                for (int b1 = 0; b1 <= amount; b1++) {
+                    if (dp[b1][b2 - price] != -1) {
+                        dp[b1][b2] = Math.max(dp[b1][b2], dp[b1][b2 - price] + rating);
+                    }
+                }
+            }
+        }
+
+        // Find the maximum rating with at least one book from each category
+        int maxRating = -1;
+        for (int b1 = 1; b1 <= amount; b1++) {
+            for (int b2 = 1; b2 <= amount; b2++) {
+                if (b1 + b2 <= amount && dp[b1][b2] != -1) {
+                    maxRating = Math.max(maxRating, dp[b1][b2]);
+                }
+            }
+        }
+
+        return maxRating;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int amount = in.nextInt(); // Input for amount
+
+        // Input for horrorBooks
+        int horrorBooks_row = in.nextInt();
+        int horrorBooks_col = in.nextInt();
+        int[][] horrorBooks = new int[horrorBooks_row][horrorBooks_col];
+        for (int idx = 0; idx < horrorBooks_row; idx++) {
+            for (int jdx = 0; jdx < horrorBooks_col; jdx++) {
+                horrorBooks[idx][jdx] = in.nextInt();
+            }
+        }
+
+        // Input for sciFiBooks
+        int sciFiBooks_row = in.nextInt();
+        int sciFiBooks_col = in.nextInt();
+        int[][] sciFiBooks = new int[sciFiBooks_row][sciFiBooks_col];
+        for (int idx = 0; idx < sciFiBooks_row; idx++) {
+            for (int jdx = 0; jdx < sciFiBooks_col; jdx++) {
+                sciFiBooks[idx][jdx] = in.nextInt();
+            }
+        }
+
+        int result = maxRatingBooks(amount, horrorBooks, sciFiBooks);
+        System.out.println(result);
+    }
+}
 import java.util.Arrays;
 
 public class Solution {
