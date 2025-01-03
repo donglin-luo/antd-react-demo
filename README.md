@@ -1,3 +1,61 @@
+import java.util.Arrays;
+
+public class Solution {
+
+    public static int maxTotalRating(int budget, int[][] category1, int[][] category2) {
+        int n1 = category1.length, n2 = category2.length;
+        int[][] dp = new int[budget + 1][budget + 1];
+
+        // Initialize dp array with -1
+        for (int i = 0; i <= budget; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        dp[0][0] = 0; // No money spent, zero rating
+
+        // Process category 1
+        for (int[] book : category1) {
+            int price = book[0], rating = book[1];
+            for (int b1 = budget; b1 >= price; b1--) {
+                for (int b2 = 0; b2 <= budget; b2++) {
+                    if (dp[b1 - price][b2] != -1) {
+                        dp[b1][b2] = Math.max(dp[b1][b2], dp[b1 - price][b2] + rating);
+                    }
+                }
+            }
+        }
+
+        // Process category 2
+        for (int[] book : category2) {
+            int price = book[0], rating = book[1];
+            for (int b2 = budget; b2 >= price; b2--) {
+                for (int b1 = 0; b1 <= budget; b1++) {
+                    if (dp[b1][b2 - price] != -1) {
+                        dp[b1][b2] = Math.max(dp[b1][b2], dp[b1][b2 - price] + rating);
+                    }
+                }
+            }
+        }
+
+        // Find the maximum rating with at least one book from each category
+        int maxRating = 0;
+        for (int b1 = 1; b1 <= budget; b1++) {
+            for (int b2 = 1; b2 <= budget; b2++) {
+                if (b1 + b2 <= budget && dp[b1][b2] != -1) {
+                    maxRating = Math.max(maxRating, dp[b1][b2]);
+                }
+            }
+        }
+
+        return maxRating;
+    }
+
+    public static void main(String[] args) {
+        int[][] category1 = {{10, 60}, {20, 100}, {30, 120}}; // (price, rating)
+        int[][] category2 = {{5, 50}, {15, 70}, {25, 90}};   // (price, rating)
+        int budget = 50;
+        System.out.println(maxTotalRating(budget, category1, category2));
+    }
+}
 import java.util.*;
 
 public class Solution {
