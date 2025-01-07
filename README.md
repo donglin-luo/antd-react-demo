@@ -1,4 +1,65 @@
-public static int maxRatingBooks(int amount, int[][] horrorBooks, int[][] sciFiBooks) {
+import java.util.*;
+
+public class Solution {
+    public static int minProject(int[] errorScore, int compP, int othQ) {
+        // Sort error scores in descending order to handle the highest error scores first
+        Arrays.sort(errorScore);
+        int answer = 0;
+
+        // Check if all error scores are already 0
+        boolean allZero = true;
+        for (int score : errorScore) {
+            if (score > 0) {
+                allZero = false;
+                break;
+            }
+        }
+        if (allZero) {
+            return 0;  // No projects needed
+        }
+
+        // If compP > othQ, it’s better to focus on reducing the individual score first
+        for (int i = errorScore.length - 1; i >= 0; i--) {
+            int remain = errorScore[i];
+
+            // While the current member’s error score is not zero, reduce it
+            if (remain > 0) {
+                // Decrease the score of the current member and all other members (except the one completing the task)
+                // Apply compP to the current member and Q to others
+                int numProjectsForCurrent = (remain + compP - 1) / compP;  // Minimum projects to bring the current score to zero
+                answer += numProjectsForCurrent;
+
+                // Now, after the current member has completed the project, reduce the scores of others
+                for (int j = 0; j < errorScore.length; j++) {
+                    if (errorScore[j] > 0) {
+                        errorScore[j] -= numProjectsForCurrent * othQ;
+                        if (errorScore[j] < 0) errorScore[j] = 0;  // Ensure no negative error scores
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // Read input values
+        int errorScore_size = in.nextInt();
+        int[] errorScore = new int[errorScore_size];
+        for (int i = 0; i < errorScore_size; i++) {
+            errorScore[i] = in.nextInt();
+        }
+        int compP = in.nextInt();
+        int othQ = in.nextInt();
+
+        // Get the minimum number of projects required
+        int result = minProject(errorScore, compP, othQ);
+
+        // Output the result
+        System.out.print(result);
+    }
+}public static int maxRatingBooks(int amount, int[][] horrorBooks, int[][] sciFiBooks) {
     int n1 = horrorBooks.length;
     int n2 = sciFiBooks.length;
 
