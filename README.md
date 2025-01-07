@@ -1,6 +1,83 @@
 import java.util.*;
 
 public class Solution {
+
+    public static int[] orgReputation(int[] effList, int[] idEList, int[][] empQuit) {
+        int[] answer = new int[empQuit.length];
+        Map<Integer, List<Integer>> teamMap = new HashMap<>();
+        long totalEfficiency = 0;
+
+        // Initialize the teamMap and calculate the total efficiency
+        for (int i = 0; i < effList.length; i++) {
+            teamMap.putIfAbsent(idEList[i], new ArrayList<>());
+            teamMap.get(idEList[i]).add(effList[i]);
+            totalEfficiency += effList[i];
+        }
+
+        // Process each day's firing and resignation
+        for (int day = 0; day < empQuit.length; day++) {
+            int firedId = empQuit[day][0] - 1; // Convert to 0-based index
+            int numResign = empQuit[day][1];
+            int teamId = idEList[firedId];
+
+            // Remove the fired employee's efficiency
+            totalEfficiency -= effList[firedId];
+            teamMap.get(teamId).remove((Integer) effList[firedId]);
+
+            // Sort and remove the highest efficiency employees who resign
+            List<Integer> teamEfficiencies = teamMap.get(teamId);
+            Collections.sort(teamEfficiencies, Collections.reverseOrder());
+
+            for (int i = 0; i < numResign && i < teamEfficiencies.size(); i++) {
+                totalEfficiency -= teamEfficiencies.get(i);
+            }
+
+            // Record the reputation after the resignations
+            answer[day] = (int) totalEfficiency;
+        }
+
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // Read the efficiency list
+        int effList_size = in.nextInt();
+        int[] effList = new int[effList_size];
+        for (int idx = 0; idx < effList_size; idx++) {
+            effList[idx] = in.nextInt();
+        }
+
+        // Read the employee team assignments
+        int idEList_size = in.nextInt();
+        int[] idEList = new int[idEList_size];
+        for (int idx = 0; idx < idEList_size; idx++) {
+            idEList[idx] = in.nextInt();
+        }
+
+        // Read the firing and resignation events
+        int empQuit_row = in.nextInt();
+        int empQuit_col = in.nextInt();
+        int[][] empQuit = new int[empQuit_row][empQuit_col];
+        for (int idx = 0; idx < empQuit_row; idx++) {
+            for (int jdx = 0; jdx < empQuit_col; jdx++) {
+                empQuit[idx][jdx] = in.nextInt();
+            }
+        }
+
+        // Get the result from the orgReputation function
+        int[] result = orgReputation(effList, idEList, empQuit);
+
+        // Output the result
+        for (int idx = 0; idx < result.length - 1; idx++) {
+            System.out.print(result[idx] + " ");
+        }
+        System.out.print(result[result.length - 1]);
+    }
+}import java.util.*;
+
+public class Solution {
     public static int[] orgReputation(int[] effList, int[] idEList, int[][] empQuit) {
         int[] answer = new int[empQuit.length];
         Map<Integer, PriorityQueue<Integer>> teamMap = new HashMap<>();
