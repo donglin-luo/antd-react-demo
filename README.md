@@ -1,3 +1,42 @@
+import java.util.Scanner;
+
+public class Solution {
+    public static String getTown(String[] peopleNames) {
+        if (peopleNames == null || peopleNames.length == 0) {
+            return "";
+        }
+        
+        String first = peopleNames[0].toLowerCase();
+        int maxLength = first.length();
+        StringBuilder answer = new StringBuilder();
+        
+        for (int i = 0; i < maxLength; i++) {
+            char ch = first.charAt(i);
+            for (int j = 1; j < peopleNames.length; j++) {
+                if (i >= peopleNames[j].length() || peopleNames[j].toLowerCase().charAt(i) != ch) {
+                    return answer.toString();
+                }
+            }
+            answer.append(ch);
+        }
+        
+        return answer.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int peopleNames_size = in.nextInt();
+        String[] peopleNames = new String[peopleNames_size];
+        for (int idx = 0; idx < peopleNames_size; idx++) {
+            peopleNames[idx] = in.next();
+        }
+        String answer = getTown(peopleNames);
+        if (!answer.isEmpty()) {
+            System.out.println(answer);
+        }
+        in.close();
+    }
+}
 import java.util.*;
 
 public class Solution {
