@@ -2,6 +2,75 @@ import java.util.*;
 
 public class Solution {
     public static int[] orgReputation(int[] effList, int[] idEList, int[][] empQuit) {
+        int[] answer = new int[empQuit.length];
+        Map<Integer, PriorityQueue<Integer>> teamMap = new HashMap<>();
+        long totalEfficiency = 0;
+
+        // 初始化团队映射和总效率
+        for (int i = 0; i < effList.length; i++) {
+            PriorityQueue<Integer> pq = teamMap.computeIfAbsent(idEList[i], k -> new PriorityQueue<>(Collections.reverseOrder()));
+            pq.offer(i);
+            totalEfficiency += effList[i];
+        }
+
+        // 处理每天的解雇和辞职
+        for (int day = 0; day < empQuit.length; day++) {
+            int firedId = empQuit[day][0] - 1; // 转换为0-based索引
+            int numResign = empQuit[day][1];
+            int teamId = idEList[firedId];
+
+            // 移除被解雇员工的效率
+            totalEfficiency -= effList[firedId];
+            teamMap.get(teamId).remove((Integer) firedId);
+
+            // 计算并移除辞职员工
+            PriorityQueue<Integer> pq = teamMap.get(teamId);
+            for (int i = 0; i < numResign && !pq.isEmpty(); i++) {
+                int idx = pq.poll();
+                totalEfficiency -= effList[idx];
+            }
+
+            // 记录当天的声誉
+            answer[day] = (int) totalEfficiency;
+        }
+
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int effList_size = in.nextInt();
+        int[] effList = new int[effList_size];
+        for (int idx = 0; idx < effList_size; idx++) {
+            effList[idx] = in.nextInt();
+        }
+
+        int idEList_size = in.nextInt();
+        int[] idEList = new int[idEList_size];
+        for (int idx = 0; idx < idEList_size; idx++) {
+            idEList[idx] = in.nextInt();
+        }
+
+        int empQuit_row = in.nextInt();
+        int empQuit_col = in.nextInt();
+        int[][] empQuit = new int[empQuit_row][empQuit_col];
+        for (int idx = 0; idx < empQuit_row; idx++) {
+            for (int jdx = 0; jdx < empQuit_col; jdx++) {
+                empQuit[idx][jdx] = in.nextInt();
+            }
+        }
+
+        int[] result = orgReputation(effList, idEList, empQuit);
+        for (int idx = 0; idx < result.length - 1; idx++) {
+            System.out.print(result[idx] + " ");
+        }
+        System.out.print(result[result.length - 1]);
+    }
+}
+import java.util.*;
+
+public class Solution {
+    public static int[] orgReputation(int[] effList, int[] idEList, int[][] empQuit) {
         int[] answer = new int[100];
         Map<Integer, List<Integer>> teamMap = new HashMap<>();
         int totalEfficiency = 0;
