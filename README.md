@@ -1,3 +1,42 @@
+题目描述了一个化学实验，其中涉及到一系列的化学物质，每种物质都有一个特定的蒸发率。实验者从这些化学物质中选择两组等量且不重叠的化学物质，每组中的化学物质是连续放置的。实验的总蒸发率是这两组化学物质中对应物质蒸发率乘积的总和。如果总蒸发率是负数，则实验者不会选择任何物质。题目要求编写一个算法来找到实验后可以获得的最大蒸发率。
+输入格式
+1.  第一行是一个整数N，表示化学物质的数量。
+2.  第二行是N个空格分隔的整数，表示每种化学物质的蒸发率。
+输出格式
+输出一个整数，表示实验后可以获得的最大蒸发率。
+约束条件
+•  2 ≤ N ≤ 3000
+•  0 ≤ 2*S ≤ N，其中S是集合的大小
+•  -10^6 ≤ vaporRate_j ≤ 10^6
+•  0 ≤ i < N
+
+输入：
+6
+8 0 5 3 9 6
+输出：
+72
+
+补全以下代码：
+import java.util.*;
+
+public class Solution {
+    public static int maximumVaporRate(int[] vaporRate) {
+      
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int vaporRate_size = in.nextInt();
+        int vaporRate[] = new int[vaporRate_size];
+        for (int idx = 0; idx < vaporRate_size; idx++) {
+            vaporRate[idx] = in.nextInt();
+        }
+        int result = maximumVaporRate(vaporRate);
+        System.out.print(result);
+    }
+}
+
+
 import java.util.*;
 
 public class Solution {
