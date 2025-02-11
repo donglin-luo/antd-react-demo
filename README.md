@@ -3,6 +3,60 @@
 Question:
 The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but efficient code. Once submitted, you cannot review this problem again. You can use System.out.println() to debug your code. The System.out.println() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
 Note: The main class name must be "Solution".
+Design a way to sort the list of positive integers in the descending order according to the frequency of the elements. The elements with higher frequency come before those with lower frequency. Elements with the same frequency come in the same order as they appear in the given list.
+Input:
+The first line of the input consists of an integer num, representing the number of elements in the list (N).
+The second line consists of N space-separated integers representing the elements in the list.
+Output:
+Print N space-separated integers representing the elements of the list sorted according to the frequency of elements present in the given list.
+Example:
+Input:
+19
+12233344555566678910
+
+Output:
+55553336662244178910
+
+Explanation:
+The element 5 has highest frequency.
+The elements 3 and 6 have same frequencies. So, their original order has been maintained in the output.
+Similarly the frequencies of rest of elements will be found and arranged.
+So, the output will be: 55553336662244178910
+提供的Java代码
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Solution {
+    public static int[] freqSort(int[] listEle) {
+        int[] answer = new int[100];
+        // Write your code here
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        // Input for listEle
+        int listEle_size = in.nextInt();
+        int listEle[] = new int[listEle_size];
+        for (int idx = 0; idx < listEle_size; idx++) {
+            listEle[idx] = in.nextInt();
+        }
+        int[] result = freqSort(listEle);
+        for (int idx = 0; idx < result.length - 1; idx++) {
+            System.out.print(result[idx] + " ");
+        }
+        System.out.print(result[result.length - 1]);
+    }
+}
+
+
+
+以下是从您提供的图片中提取的完整英文原题和代码：
+英文原题
+Question:
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but efficient code. Once submitted, you cannot review this problem again. You can use System.out.println() to debug your code. The System.out.println() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+Note: The main class name must be "Solution".
 Dr. Jackson, a researcher, wishes to perform an experiment. He has a variety of toxic chemicals. Each chemical has some vapor rate. When two chemicals are mixed, then the vapor rate of the mixture is the multiplication of their respective vapor rates.
 Dr. Jackson picks two equal-sized sets of non-overlapping, consecutively-placed chemicals from a series of chemicals in his lab; he reverses the positions of the chemicals in the second set. He then mixes each chemical from the first set with the correspondingly-placed chemical of the second set. The total vapor rate at the end of the experiment is the sum of the products of the respective vapor rates of the chemicals that he mixed from both sets. If the total vapor rate is negative, he will not pick any set.
 Write an algorithm to find the maximum vapor rate obtainable after the experiment.
