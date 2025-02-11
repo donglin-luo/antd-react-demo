@@ -3,6 +3,56 @@ import java.util.*;
 public class Solution {
     public static int maximumVaporRate(int[] vaporRate) {
         int N = vaporRate.length;
+        int maxVaporRate = 0; // 记录最大蒸发率
+        
+        // 遍历第一组子数组的起点
+        for (int i = 0; i < N; i++) {
+            for (int j = i; j < N; j++) {
+                // 计算第一组子数组的乘积
+                int prod1 = 1;
+                for (int k = i; k <= j; k++) {
+                    prod1 *= vaporRate[k];
+                }
+
+                // 遍历第二组子数组的起点（确保不重叠）
+                for (int m = j + 1; m < N; m++) {
+                    for (int n = m; n < N; n++) {
+                        // 计算第二组子数组的乘积
+                        int prod2 = 1;
+                        for (int p = m; p <= n; p++) {
+                            prod2 *= vaporRate[p];
+                        }
+
+                        // 计算总蒸发率
+                        int totalSum = prod1 + prod2;
+
+                        // 只更新正值
+                        if (totalSum > 0) {
+                            maxVaporRate = Math.max(maxVaporRate, totalSum);
+                        }
+                    }
+                }
+            }
+        }
+
+        return maxVaporRate;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int vaporRate_size = in.nextInt();
+        int vaporRate[] = new int[vaporRate_size];
+        for (int idx = 0; idx < vaporRate_size; idx++) {
+            vaporRate[idx] = in.nextInt();
+        }
+        int result = maximumVaporRate(vaporRate);
+        System.out.print(result);
+    }
+}import java.util.*;
+
+public class Solution {
+    public static int maximumVaporRate(int[] vaporRate) {
+        int N = vaporRate.length;
         int maxVaporRate = 0;
 
         // 遍历第一组子数组的起点
