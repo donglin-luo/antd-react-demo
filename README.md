@@ -1,3 +1,58 @@
+以下是从您提供的图片中提取的完整英文原题和代码：
+英文原题
+Question:
+The current selected programming language is Java. We emphasize the submission of a fully working code over partially correct but efficient code. Once submitted, you cannot review this problem again. You can use System.out.println() to debug your code. The System.out.println() may not work in case of syntax/runtime error. The version of JDK being used is 1.8.
+Note: The main class name must be "Solution".
+Dr. Jackson, a researcher, wishes to perform an experiment. He has a variety of toxic chemicals. Each chemical has some vapor rate. When two chemicals are mixed, then the vapor rate of the mixture is the multiplication of their respective vapor rates.
+Dr. Jackson picks two equal-sized sets of non-overlapping, consecutively-placed chemicals from a series of chemicals in his lab; he reverses the positions of the chemicals in the second set. He then mixes each chemical from the first set with the correspondingly-placed chemical of the second set. The total vapor rate at the end of the experiment is the sum of the products of the respective vapor rates of the chemicals that he mixed from both sets. If the total vapor rate is negative, he will not pick any set.
+Write an algorithm to find the maximum vapor rate obtainable after the experiment.
+Input:
+The first line of the input consists of an integer num, representing the number of chemicals in the series (N). The second line consists of N space-separated integers - vaporRate0, vaporRate1, ..., vaporRateN-1 representing the vapor rate of each chemical.
+Output:
+Print an integer representing the maximum vapor rate after the experiment.
+Constraints:
+•  2 ≤ num ≤ 3000
+•  0 ≤ 2*S ≤ num, where S is the size of the set
+•  -10^6 ≤ vaporRate_j ≤ 10^6
+•  0 ≤ i < num
+Example:
+Input:
+6
+8 0 5 3 9 6
+
+Output:
+72
+
+Explanation:
+Two optimal sets are {8} and {9}. Maximum vapor rate = 72 (8 * 9).
+提供的Java代码
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Solution {
+    public static int maximumVaporRate(int[] vaporRate) {
+        int answer = 0;
+        // Write your code here
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        // Input for vaporRate
+        int vaporRate_size = in.nextInt();
+        int vaporRate[] = new int[vaporRate_size];
+        for (int idx = 0; idx < vaporRate_size; idx++) {
+            vaporRate[idx] = in.nextInt();
+        }
+        int result = maximumVaporRate(vaporRate);
+        System.out.print(result);
+    }
+}
+
+这段代码提供了一个框架，其中maximumVaporRate函数需要实现以计算最大蒸发率。
+
+
 题目描述了一个化学实验，其中涉及到一系列的化学物质，每种物质都有一个特定的蒸发率。实验者从这些化学物质中选择两组等量且不重叠的化学物质，每组中的化学物质是连续放置的。实验的总蒸发率是这两组化学物质中对应物质蒸发率乘积的总和。如果总蒸发率是负数，则实验者不会选择任何物质。题目要求编写一个算法来找到实验后可以获得的最大蒸发率。
 输入格式
 1.  第一行是一个整数N，表示化学物质的数量。
