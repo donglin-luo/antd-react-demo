@@ -1,4 +1,50 @@
-import java.util.Scanner;
+import java.util.*;
+
+public class Solution {
+    public static int maximumVaporRate(int[] vaporRate) {
+        int N = vaporRate.length;
+        int maxVaporRate = 0;
+
+        // 遍历第一组子数组的起点
+        for (int i = 0; i < N; i++) {
+            // 遍历第一组子数组的终点
+            for (int j = i; j < N; j++) {
+                int sum1 = 1; // 第一组子数组的乘积
+                for (int k = i; k <= j; k++) {
+                    sum1 *= vaporRate[k];
+                }
+
+                // 遍历第二组子数组的起点（确保不重叠）
+                for (int m = j + 1; m < N; m++) {
+                    // 遍历第二组子数组的终点
+                    for (int n = m; n < N; n++) {
+                        int sum2 = 1; // 第二组子数组的乘积
+                        for (int p = m; p <= n; p++) {
+                            sum2 *= vaporRate[p];
+                        }
+                        int totalSum = sum1 + sum2;
+                        if (totalSum > 0) {
+                            maxVaporRate = Math.max(maxVaporRate, totalSum);
+                        }
+                    }
+                }
+            }
+        }
+
+        return maxVaporRate;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int vaporRate_size = in.nextInt();
+        int vaporRate[] = new int[vaporRate_size];
+        for (int idx = 0; idx < vaporRate_size; idx++) {
+            vaporRate[idx] = in.nextInt();
+        }
+        int result = maximumVaporRate(vaporRate);
+        System.out.print(result);
+    }
+}import java.util.Scanner;
 
 public class Solution {
     public static String getTown(String[] peopleNames) {
